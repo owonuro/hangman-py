@@ -1,0 +1,142 @@
+var wordList = ['book','father', 'mother', 'uncle', 'pedestrian', 'kingdom', 'letter', 'exercise', 'dangerous', 'foreign', 'hammer', 'height', 'island', 'kitchen', 'neighbour' ];
+
+
+
+	
+
+function start() {
+
+var correctWord ;
+var correctWord2 = [];
+	
+/*This first line of code are used to reset the codes*/
+var me = document.getElementById('main-doc')
+me.innerHTML = '';
+
+document.getElementById('alphabet').innerHTML = '';
+document.getElementById('wrong').innerHTML = '';
+document.getElementById('g-over').style.display = 'none';
+document.getElementById('g-over2').style.display = 'none';
+document.getElementById('cover').style.display = 'none';
+
+/*This is a function that should start the program*/	
+var selectedWord = wordList[Math.floor(Math.random() *wordList.length)];
+selectedWord = selectedWord.toUpperCase()
+
+/*This for loop is used to input element base on t
+he length of the word selected at random*/
+for (let x = 0; x < selectedWord.length; x++ ) {
+var newNode = document.createElement('input');
+var att1 = document.createAttribute('maxlength');
+att1.value = '1';
+var att2 = document.createAttribute('readonly');
+newNode.setAttributeNode(att2);
+newNode.setAttributeNode(att1);
+document.getElementById("main-doc").appendChild(newNode);
+
+}
+
+/*This loop is used to create the letter button*/
+for (let i = 65; i < 91; i++) {
+
+var letterButton = document.createElement('button');
+var letter =  String.fromCharCode(i);
+var node1 = document.createTextNode(letter);
+letterButton.appendChild(node1);
+
+var myId = document.createAttribute('id');
+myId.value = letter;
+letterButton.setAttributeNode(myId);
+letterButton.addEventListener('click',myclick);
+document.getElementById('alphabet').appendChild(letterButton);
+
+
+
+
+}
+
+
+/*Start function stops here*/
+
+function keyboard(event) {
+	if (event.key == 'H' ) {
+	alert(event.key);
+	}
+	else {
+		alert(event.code)
+	}
+		
+}
+
+/*This function is to select the letter, 
+check if its in the selected word and updates the answer box with the letter.*/
+
+var bool = 'no';
+var wrong =[];
+var wrongE =document.getElementById('wrong');
+var typedLetter = [];
+var correctWord = document.getElementsByTagName('input')
+
+
+function myclick(event) {
+if (typedLetter.includes(event.target.id) == true) {
+return
+}
+
+
+var selectedLetter = event.target.id;
+var selectedBoxes = document.getElementsByTagName('input');
+var selectedLetter2 = event.target;
+
+selectedLetter2.style.color = 'rgba(255, 155, 26, 0.3)'
+selectedLetter2.style.backgroundColor = 'rgba(255, 155, 26, 0.4)'
+
+
+
+for (let i = 0; i < selectedWord.length; i++) {
+const letter = selectedWord[i];
+
+if (selectedLetter == letter) {
+selectedBoxes[i].value = letter;
+bool = 'yes';
+typedLetter.push(selectedLetter);
+for (let i = 0; i < selectedWord.length; i++) {
+var cWord = correctWord[i];
+correctWord2.push(cWord.value);
+};
+
+var newList = correctWord2.join('');
+
+if (newList == selectedWord) {
+document.getElementById('cover').style.display = 'block';
+document.getElementById('cover').style.backgroundColor = 'green';
+document.getElementById('g-over2').style.display = 'block';
+}
+cWord.length =0;
+correctWord2.length = 0;
+}
+	
+}
+if (bool == 'no' && wrong.length < 7){
+typedLetter.push(selectedLetter);
+wrong.push(' '+selectedLetter);
+wrongE.innerHTML = 'Incorrect: '+ wrong;
+
+}
+
+if(wrong.length == 7){
+document.getElementById('cover').style.display = 'block';
+document.getElementById('cover').style.backgroundColor = 'red';
+document.getElementById('w-word').innerHTML = '"' + selectedWord +'"'
+document.getElementById('g-over').style.display = 'block';
+
+}
+
+bool = 'no';
+}
+
+
+}
+
+
+start();

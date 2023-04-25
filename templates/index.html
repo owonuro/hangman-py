@@ -1,0 +1,201 @@
+<!--HANGMAN GAME-->
+
+<!DOCTYPE html>
+
+<html>
+<head>
+<title>I CAN SPELL!</title>
+<meta charset="UTF-8"  />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="{{url_for('static',filename='css/hang.css')}}" />
+
+</head>
+
+<body>
+
+<header><h1>I CAN SPELL!</h1></header>
+
+<!--<button class="">ADULT</button>-->
+
+<div id="my-body">
+<div id="main-doc" ></div>
+<div id="def"><div id="def-b"><strong>Definition:</strong></div> <marquee id='def2' scrollamount='3'>A fish is a type of animal.</marquee></div>
+
+<div id="alphabet"></div>
+
+<div id="wrong"></div>
+</div>
+
+<div   id='g-over' >
+<h3 >OOPS! GAME OVER! </h3>
+<p >The correct word is <span id="w-word"></span></p>
+<button  class='start' onclick="start()" >RESTART</button>
+</div>
+
+<div id="g-over2">
+<h3>CORRECT! HURRAY!!!</h3>
+<button  class='start' onclick="start()">PLAY AGAIN!</button>
+</div>
+
+<div id="cover"></div>
+
+<footer>
+<time> </time>
+</footer>
+<script type="text/javascript" >
+//<!--This is a comment  'src="{{url_for('static', filename='js/game.js')}}"'-->
+//var wordList = ['book','father', 'mother', 'uncle', 'pedestrian', 'kingdom', 'letter', 'exercise', 'dangerous', 'foreign', 'hammer', 'height', 'island', 'kitchen', 'neighbour' ];
+
+var wordList = {{mylist|safe}}
+	
+
+function start() {
+
+var correctWord ;
+var correctWord2 = [];
+	
+/*This first line of code are used to reset the codes*/
+var me = document.getElementById('main-doc')
+me.innerHTML = '';
+
+document.getElementById('alphabet').innerHTML = '';
+document.getElementById('wrong').innerHTML = '';
+document.getElementById('g-over').style.display = 'none';
+document.getElementById('g-over2').style.display = 'none';
+document.getElementById('cover').style.display = 'none';
+
+/*This is a function that should start the program*/	
+var selectedWord = wordList[Math.floor(Math.random() *wordList.length)];
+selectedWord[0] = selectedWord[0].toUpperCase();
+document.getElementById('def2').innerHTML = selectedWord[1];
+
+
+
+/*This for loop is used to input element base on t
+he length of the word selected at random*/
+for (let x = 0; x < selectedWord[0].length; x++ ) {
+var newNode = document.createElement('input');
+var att1 = document.createAttribute('maxlength');
+att1.value = '1';
+var att2 = document.createAttribute('readonly');
+newNode.setAttributeNode(att2);
+newNode.setAttributeNode(att1);
+document.getElementById("main-doc").appendChild(newNode);
+
+}
+
+/*This loop is used to create the letter button*/
+for (let i = 65; i < 91; i++) {
+
+var letterButton = document.createElement('button');
+var letter =  String.fromCharCode(i);
+var node1 = document.createTextNode(letter);
+letterButton.appendChild(node1);
+
+var myId = document.createAttribute('id');
+myId.value = letter;
+letterButton.setAttributeNode(myId);
+letterButton.addEventListener('click',myclick);
+document.getElementById('alphabet').appendChild(letterButton);
+
+
+
+
+}
+
+
+/*Start function stops here*/
+
+function keyboard(event) {
+	if (event.key == 'H' ) {
+	alert(event.key);
+	}
+	else {
+		alert(event.code)
+	}
+		
+}
+
+/*This function is to select the letter, 
+check if its in the selected word and updates the answer box with the letter.*/
+
+var bool = 'no';
+var wrong =[];
+var wrongE =document.getElementById('wrong');
+var typedLetter = [];
+var correctWord = document.getElementsByTagName('input')
+
+
+function myclick(event) {
+if (typedLetter.includes(event.target.id) == true) {
+return
+}
+
+
+var selectedLetter = event.target.id;
+var selectedBoxes = document.getElementsByTagName('input');
+var selectedLetter2 = event.target;
+
+selectedLetter2.style.color = 'rgba(255, 155, 26, 0.3)'
+selectedLetter2.style.backgroundColor = 'rgba(255, 155, 26, 0.4)'
+
+
+
+for (let i = 0; i < selectedWord[0].length; i++) {
+const letter = selectedWord[0][i];
+
+if (selectedLetter == letter) {
+selectedBoxes[i].value = letter;
+bool = 'yes';
+typedLetter.push(selectedLetter);
+for (let i = 0; i < selectedWord[0].length; i++) {
+var cWord = correctWord[i];
+correctWord2.push(cWord.value);
+};
+
+var newList = correctWord2.join('');
+
+if (newList == selectedWord[0]) {
+document.getElementById('cover').style.display = 'block';
+document.getElementById('cover').style.backgroundColor = 'green';
+document.getElementById('g-over2').style.display = 'block';
+}
+cWord.length =0;
+correctWord2.length = 0;
+}
+	
+}
+if (bool == 'no' && wrong.length < 7){
+typedLetter.push(selectedLetter);
+wrong.push(' '+selectedLetter);
+wrongE.innerHTML = '<strong>Incorrect:</strong> '+ wrong;
+
+}
+
+if(wrong.length == 4){
+document.getElementById('cover').style.display = 'block';
+document.getElementById('cover').style.backgroundColor = 'red';
+document.getElementById('w-word').innerHTML = '"' + selectedWord[0] +'"'
+document.getElementById('g-over').style.display = 'block';
+
+}
+
+bool = 'no';
+}
+
+
+}
+
+
+start();
+
+
+</script>
+
+
+</body>
+
+
+
+
+</html>

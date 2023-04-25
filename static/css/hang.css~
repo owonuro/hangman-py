@@ -1,0 +1,247 @@
+/*{
+margin: 0;
+padding: 0;
+}*/
+
+@keyframes droping{
+0%{left: -100%;
+
+
+	}
+100% {
+
+left:0.9% ; 
+}
+}
+
+@keyframes centerMe{
+
+
+0% {top: -10%;
+position:absolute;
+left: 39%;
+
+}
+
+100% {
+	
+	top:0.9% ;
+	position: relative;
+	
+	}
+}
+
+@keyframes centerMe2{
+
+
+0% {top: -80%;
+position:absolute;
+left: 20%;
+
+}
+
+100% {
+	
+	top:20% ;
+	position: relative;
+	
+	}
+}
+
+
+html
+{margin: 0;
+padding: 0;
+font-family: Times;
+font-weight: 500;
+background-color: rgba(26, 125, 255, 0.1);
+}
+
+h1 {
+text-align: center;
+color: rgb(26, 125, 255);
+text-shadow: 2px 2px 3px white, 1px 1px 1px black;
+font-weight: 700;
+font-family: Helvetica;
+margin: 0;
+
+}
+
+
+#my-body{
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+
+#def{
+display: flex;
+width: 40%;
+
+}
+
+#def-b{
+margin-right: 5px;
+}
+
+h1, #main-doc, #def, #alphabet, #wrong{
+margin-bottom: 10px;
+}
+
+
+#main-doc{
+
+position:relative;
+animation-name: droping;
+animation-duration: 2s;
+
+}
+
+#alphabet{
+overflow-y: hidden;
+position: relative;
+
+width: 40%;
+padding: 1%;
+background-color: white;
+box-shadow: 3px 3px  black, -2px -2px black, 1px 1px black, -1px -1px black;
+border: solid rgb(26, 125, 255) 3px;
+
+}
+
+#main-doc input{
+width: 30px;
+margin: 3px;
+border:0px;
+border-bottom: solid blue 2px;
+font-size: 27px;
+background-color: none;
+text-align: center;
+/*animation-name: droping;
+animation-duration: 2s;
+*/
+}
+
+
+
+#alphabet button {
+width: 40px;
+height: 40px;
+margin: 5px;
+cursor: pointer;
+position: relative;
+font-size: 25px;
+background-color: rgb(255, 155, 26);
+transition: background-color 5s;
+animation-name: droping;
+animation-duration: 2s;
+}
+
+
+#alphabet button:hover{
+background-color: rgba(255, 155, 26, 0.3);
+box-shadow: 2px 2px black;
+
+}
+
+#wrong{
+position: relative; 
+margin-top: ;
+margin-left: ;
+text-align: left;
+width:40%; 
+}
+
+
+
+#g-over2, #g-over{
+display: none;
+position: fixed;
+width: 30%;
+height: 30%;
+top: 33%;
+left: 40%;
+color: white;
+z-index: 10;
+text-align: center;
+dragabble: yes;
+border-radius: 15%;
+box-shadow: 5px 5px 5px black;
+padding-top: 35px;
+animation: centerMe2;
+animation-duration:2s;
+}
+
+#w-word{
+font-family: Arial, Times;
+font-weight: 700;
+}
+
+#g-over{
+background-color: red;
+}
+
+#g-over2{
+background-color: green;
+}
+
+.start{
+width: ;
+height: 40px;
+background-color: white;
+cursor: pointer;
+border:2px solid grey;
+font-weight: 700;
+}
+
+.start:hover{
+background-color: wheat;
+}
+
+
+
+@media(max-width:600px){
+	
+#wrong, #def{
+width: 80%;
+}
+
+#alphabet{
+overflow-y: hidden;
+position: relative;
+margin-right: ;
+margin-left: ;
+margin-top: 0; 
+width: 80%;
+padding: 1%;
+
+border: solid rgb(26, 125, 255) 3px;
+}
+
+
+#g-over, #g-over2{
+width: 70%;
+height: 30%;
+top: 30%;
+left: 15%;
+}
+}
+
+
+#cover{
+position: fixed;
+top: 0;
+left: 0;
+display: none;
+width: 100%;
+height: 100%;
+z-index: 8;
+opacity: 0.2;
+}
+
+
+
+
+#over-txt{
+margin-top: 20vw;
+}
